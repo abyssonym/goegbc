@@ -1,0 +1,238 @@
+byteorder: "little"
+opcode_size: 1
+max_pointer_size: 2
+virtual_address: 0
+default_context: "standard"
+expand_multiline: 2
+inline_text: True
+prettify:
+  _null:
+contexts:
+  standard:
+    instructions:
+      0x00:
+        comment: "End event"
+        is_terminator: True
+      0x01:
+        comment: "Return"
+      0x02:
+        length: 1
+      0x03:
+        comment: "Wait for input (Continue)"
+        is_inline_text: True
+      0x04:
+        comment: "Wait for input (Close)"
+        is_inline_text: True
+      0x05:
+        comment: "Turn on blink effect"
+        is_inline_text: True
+      0x06:
+        comment: "Turn off blink effect"
+        is_inline_text: True
+      0x07:
+        length: 1
+        is_inline_text: True
+      0x08:
+        length: 1
+      0x09:
+        length: 1
+      0x0a:
+        comment: "Pause"
+        length: 1
+        is_inline_text: True
+      0x0b:
+        length: 1
+        is_inline_text: True
+      0x0c:
+        length: 1
+        is_inline_text: True
+      0x0d:
+        length: 1
+      0x0e:
+        comment: "Display item name"
+        length: 1
+        is_inline_text: True
+      0x0f:
+        length: 1
+      0x10:
+        length: 1
+        is_inline_text: True
+      0x11:
+        length: 1
+      0x12:
+        length: 1
+      0x13:
+        length: 1
+      0x14:
+        length: 1
+      0x15:
+        length: 1
+      0x16:
+        length: 1
+      0x17:
+        length: 1
+      0x18:
+        comment: "Space"
+        length: 1
+        is_inline_text: True
+      0x19:
+        length: 1
+      0x1a:
+        comment: "Call script {page+0x1e:x}-{script:0>3x} if condition"
+        length: 5
+        fields:
+          script:
+            mask: 0x0000ff01
+          condition:
+            mask: 0xffff0000
+          page:
+            mask: 0x000000fe
+      0x1c:
+        length: 5
+        fields:
+          script:
+            mask: 0x0000ff01
+          condition:
+            mask: 0xffff0000
+          page:
+            mask: 0x000000fe
+      0x1d:
+        length: 5
+      0x1e:
+        length: 7
+        fields:
+          script:
+            mask: 0x0000000000ff01
+            byteorder: "little"
+          unknown1:
+            mask: 0x000000000000fe
+            byteorder: "big"
+          unknown2:
+            mask: 0x00ffffffff0000
+            byteorder: "big"
+      0x20:
+        length: 3
+        comment: "Call script {page+0x1e:x}-{script:0>3x} if selected"
+        fields:
+          script:
+            mask: 0x00ff01
+          page:
+            mask: 0x0000fe
+      0x21:
+        length: 2
+      0x22:
+        length: 3
+      0x23:
+        length: 3
+      0x25:
+        length: 4
+      0x26:
+        length: 2
+      0x27:
+        length: 2
+      0x28:
+        comment: "Set speaker: {_pretty_speaker} ({_pretty_alternate})"
+        length: 2
+        fields:
+          speaker:
+            mask: 0x003f
+            prettify:
+              0x01: "Goemon"
+              0x02: "Ebisumaru"
+              0x03: "Sasuke"
+              0x04: "Yae"
+              0x05: "Omitsu"
+              0x06: "Old Man"
+              0x07: "Lord"
+              0x08: "Head Priest"
+              0x09: "Koryuta"
+              0x0a: "Man 1"
+              0x0b: "Woman 1"
+              0x0c: "Policeman"
+              0x0d: "Master"
+              0x0e: "Priest"
+              0x0f: "Young Monk"
+              0x10: "Kenzo"
+              0x11: "Dog"
+              0x12: "Muchitarou"
+              0x13: "Mysterious Old Man"
+              0x14: "Gatekeeper"
+              0x15: "Apprentice"
+              0x16: "Child"
+              0x17: "Mayor 1"
+              0x18: "Mayor 2"
+              0x19: "Expert"
+              0x1a: "Man 2"
+              0x1b: "Woman 2"
+              0x1c: "Captain"
+              0x1d: "????"
+              0x1e: "Statue"
+              0x1f: "Tsururin"
+          alternate:
+            mask: 0x0040
+            prettify:
+              0: "Standard"
+              1: "Alternate"
+          unknown:
+            mask: 0x0080
+      0x29:
+        length: 2
+      0x2a:
+        comment: "Choice"
+        length: 2
+      0x2b:
+        comment: "Play sound"
+        length: 3
+        fields:
+          unknown:
+            mask: 0x00ffff
+      0x30:
+        comment: "Insert {length+2} spaces"
+        mask: 0xf0
+        range: [0x30, 0x3f]
+        length: 1
+        fields:
+          length:
+            mask: 0x0f
+      0x40:
+        comment: "Display word {word:0>2x} from list"
+        mask: 0xf0
+        range: [0x40, 0x4f]
+        length: 1
+        fields:
+          word:
+            mask: 0x0f
+      0x50:
+        comment: "Repeat character {character:0>2x} ({length+3} bytes)"
+        mask: 0xf0
+        range: [0x50, 0x5f]
+        length: 2
+        fields:
+          character:
+            mask: 0x00ff
+          length:
+            mask: 0x0f00
+      0x60:
+        mask: 0xf0
+        range: [0x60, 0x6f]
+        comment: "Copy Text ({length+4} bytes)"
+        length: 3
+        fields:
+          address:
+            mask: 0x00ffff
+          length:
+            mask: 0x0f0000
+      0x70:
+        mask: 0xff
+        length: 2
+        is_inline_text: True
+        fields:
+          character:
+            mask: 0x00ff
+      0x71:
+        mask: 0x00
+        range: [0x71, 0xff]
+        is_inline_text: True
+        fields:
+          character:
+            mask: 0xff

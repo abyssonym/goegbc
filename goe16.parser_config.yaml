@@ -1,0 +1,70 @@
+byteorder: "big"
+opcode_size: 2
+max_pointer_size: 2
+virtual_address: 0
+default_context: "standard"
+expand_multiline: 2
+inline_text: True
+prettify:
+  portrait:
+    0x02: "Ebisumaru"
+    0x61: "Goemon (Frown)"
+  sound:
+    0x05: "Ding-a-ling"
+  name:
+    0x0c: "Player"
+contexts:
+  standard:
+    instructions:
+      0x00:
+        mask: 0x00
+        range: [0x00, 0xf1]
+        is_inline_text: True
+      0xf2:
+        comment: "End Dialogue"
+        mask: 0xff
+      0xf300:
+        comment: "Portrait: {_pretty_portrait}"
+        mask: 0xff00
+        fields:
+          portrait:
+            mask: 0x00ff
+      0xf400:
+        comment: "Display quantity? {quantity}"
+        mask: 0xff00
+        fields:
+          quantity:
+            mask: 0x00ff
+      0xf5:
+        mask: 0x00
+        range: [0xf5, 0xf7]
+        is_inline_text: True
+      0xf800:
+        comment: "Name: {_pretty_name}"
+        mask: 0xff00
+        fields:
+          name:
+            mask: 0x00ff
+      0xf9:
+        mask: 0x00
+        range: [0xf9, 0xfa]
+        is_inline_text: True
+      0xfb00:
+        comment: "Sound: {_pretty_sound}"
+        mask: 0xff00
+        fields:
+          sound:
+            mask: 0x00ff
+      0xfc:
+        comment: "End Window"
+        mask: 0xff
+      0xfd:
+        comment: "Clear Window"
+        mask: 0xff
+      0xfe:
+        mask: 0xff
+        is_inline_text: True
+      0xff:
+        comment: "End Event"
+        mask: 0xff
+        is_terminator: True

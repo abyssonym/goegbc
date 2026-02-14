@@ -1,0 +1,24 @@
+byteorder: "little"
+junk_data:
+  start: 0
+  data_type: "blob"
+  finish: "@main_pointers"
+main_pointers:
+  start: 0
+  data_type: "pointers"
+  pointer_order: "optimize"
+  pointer_length: 2
+  relative_to: 0
+  subformat:
+    data_type: "mask_struct"
+    masks:
+      pointer:
+        mask: "ff 3f"
+      unknown:
+        mask: "00 c0"
+  finish: "@main_data"
+main_data:
+  start: "@@main_pointers"
+  data_type: "pointed_list"
+  linked_pointers: "main_pointers"
+  finish: "!eof"
