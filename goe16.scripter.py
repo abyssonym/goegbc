@@ -207,7 +207,10 @@ def export_script(romfile, outfile):
 
 
 if __name__ == '__main__':
-    infile = argv[1]
+    if 'GOE_ROM' in environ:
+        infile = environ['GOE_ROM']
+    elif len(argv) > 1:
+        infile = argv[1]
     if len(argv) > 2:
         outfile = argv[2]
     else:
@@ -221,8 +224,8 @@ if __name__ == '__main__':
               f'  Expected - {EXPECTED_CHECKSUM}\n'
               f'  This ROM - {checksum}')
 
-    if 'SCRIPT_EXPORT' in environ:
-        export_script(infile, environ['SCRIPT_EXPORT'])
-    if 'SCRIPT_IMPORT' in environ:
+    if 'GOE_EXPORT' in environ:
+        export_script(infile, environ['GOE_EXPORT'])
+    if 'GOE_IMPORT' in environ:
         copy(infile, outfile)
-        import_script(outfile, environ['SCRIPT_IMPORT'])
+        import_script(outfile, environ['GOE_IMPORT'])
