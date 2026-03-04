@@ -136,7 +136,7 @@ DECODER = GoeDecoder()
 
 
 class GoeParser(Parser):
-    SCRIPT_CONFIG = 'parser_config.yaml'
+    SCRIPT_CONFIG = 'goe17.parser_config.yaml'
     FIRST_PARSER = None
 
     common_words = []
